@@ -12,7 +12,6 @@
 		F735095C1AFB7EE2007053A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F735095B1AFB7EE2007053A2 /* Images.xcassets */; };
 		F735095F1AFB7EE2007053A2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F735095D1AFB7EE2007053A2 /* LaunchScreen.xib */; };
 		F735096B1AFB7EE3007053A2 /* RadioButtonCheckboxTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F735096A1AFB7EE3007053A2 /* RadioButtonCheckboxTableViewTests.swift */; };
-		F735097D1AFB8677007053A2 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = F735097C1AFB8677007053A2 /* Gender.swift */; };
 		F735097F1AFB8695007053A2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F735097E1AFB8695007053A2 /* User.swift */; };
 		F73509811AFB8814007053A2 /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73509801AFB8814007053A2 /* UserListTableViewController.swift */; };
 		F73509831AFB882C007053A2 /* UserAddTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73509821AFB882C007053A2 /* UserAddTableViewController.swift */; };
@@ -38,7 +37,6 @@
 		F73509641AFB7EE3007053A2 /* RadioButtonCheckboxTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadioButtonCheckboxTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F73509691AFB7EE3007053A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F735096A1AFB7EE3007053A2 /* RadioButtonCheckboxTableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonCheckboxTableViewTests.swift; sourceTree = "<group>"; };
-		F735097C1AFB8677007053A2 /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		F735097E1AFB8695007053A2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F73509801AFB8814007053A2 /* UserListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListTableViewController.swift; sourceTree = "<group>"; };
 		F73509821AFB882C007053A2 /* UserAddTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAddTableViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 			children = (
 				F73509521AFB7EE2007053A2 /* AppDelegate.swift */,
 				F735097E1AFB8695007053A2 /* User.swift */,
-				F735097C1AFB8677007053A2 /* Gender.swift */,
 				F73509801AFB8814007053A2 /* UserListTableViewController.swift */,
 				F73509821AFB882C007053A2 /* UserAddTableViewController.swift */,
 				F73509581AFB7EE2007053A2 /* Main.storyboard */,
@@ -222,7 +219,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73509831AFB882C007053A2 /* UserAddTableViewController.swift in Sources */,
-				F735097D1AFB8677007053A2 /* Gender.swift in Sources */,
 				F735097F1AFB8695007053A2 /* User.swift in Sources */,
 				F73509811AFB8814007053A2 /* UserListTableViewController.swift in Sources */,
 				F73509531AFB7EE2007053A2 /* AppDelegate.swift in Sources */,
@@ -421,6 +417,7 @@
 				F73509701AFB7EE3007053A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F73509711AFB7EE3007053A2 /* Build configuration list for PBXNativeTarget "RadioButtonCheckboxTableViewTests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +426,7 @@
 				F73509731AFB7EE3007053A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

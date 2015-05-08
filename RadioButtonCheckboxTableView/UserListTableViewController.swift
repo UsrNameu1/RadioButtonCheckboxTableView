@@ -9,89 +9,70 @@
 import UIKit
 
 class UserListTableViewController: UITableViewController {
-
+    
+    private let CellIdentifier = "CellIdentifier"
+    private let SegueIdentifier = "AddUserTableViewController"
+    
+    private var users = [User]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let identifier = segue.identifier ?? ""
+        switch identifier {
+        case SegueIdentifier :
+            let addViewController = segue.destinationViewController as! UserAddTableViewController
+            addViewController.delegate = self
+        default : ()
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+}
 
-    // MARK: - Table view data source
-
+extension UserListTableViewController: UITableViewDataSource {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
+        return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
+        return users.count
     }
-
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let index = indexPath.row
+        cell.textLabel?.text = users[index].name
+        cell.detailTextLabel?.text = users[index].ageLevel.levelText
+        let backgroundColor: UIColor
+        switch users[index].gender {
+        case .Male : backgroundColor = UIColor.cyanColor()
+        case .Female : backgroundColor = UIColor.magentaColor()
+        }
+        cell.backgroundColor = backgroundColor
         return cell
     }
-    */
+}
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+extension UserListTableViewController: UserAddTableViewControllerDelegate {
+    func userAddViewController(vc: UserAddTableViewController, doneButtonDidTapWithUser user: User) {
+        users.append(user)
+        tableView.reloadData()
     }
-    */
+}
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+extension AgeLevel {
+    var levelText: String {
+        let headString = "Age between "
+        switch self {
+        case .Over0 : return headString + "0 - 10"
+        case .Over10 : return headString + "10 - 20"
+        case .Over20 : return headString + "20 - 30"
+        case .Over30 : return headString + "30 - 40"
+        case .Over40 : return headString + "40 - 50"
+        case .Over50 : return headString + "50 - 60"
+        case .Over60 : return headString + "60 - "
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

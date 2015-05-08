@@ -8,90 +8,102 @@
 
 import UIKit
 
-class UserAddTableViewController: UITableViewController {
+protocol UserAddTableViewControllerDelegate: class {
+    func userAddViewController(
+        vc: UserAddTableViewController,
+        doneButtonDidTapWithUser user: User
+    )
+}
 
+class UserAddTableViewController: UITableViewController {
+    
+    weak var delegate: UserAddTableViewControllerDelegate?
+    
+    private var selectedLevel: AgeLevel = .Over0
+    @IBOutlet weak var nameTextField: UITextField!
+    private var selectedGender: Gender = .Male
+
+    @IBOutlet var ageCells: [UITableViewCell]!
+    
+    @IBOutlet var genderCells: [UITableViewCell]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func doneButtonDidTap(sender: AnyObject) {
+        let user =
+        User(name: nameTextField.text ?? "",
+            gender: selectedGender,
+            ageLevel: selectedLevel
+        )
+        delegate?.userAddViewController(self, doneButtonDidTapWithUser: user)
+        navigationController?.popViewControllerAnimated(true)
     }
+}
 
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
+extension UserAddTableViewController: UITableViewDelegate {
+    
+    override func tableView(
+        tableView: UITableView,
+        didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if let selectedCell = tableView.cellForRowAtIndexPath(indexPath)
+            where contains(ageCells, selectedCell) {
+            ageCells.map { cell in
+                cell.accessoryType = .None
+            }
+            selectedCell.accessoryType = .Checkmark
+        }
+        
+        if let level = AgeLevel(cellIndexPath: indexPath) {
+            selectedLevel = level
+        }
+        
+        if let selectedCell = tableView.cellForRowAtIndexPath(indexPath)
+            where contains(genderCells, selectedCell) {
+            genderCells.map { cell in
+                cell.accessoryType = .None
+            }
+            selectedCell.accessoryType = .Checkmark
+        }
+        
+        if let gender = Gender(cellIndexPath: indexPath) {
+            selectedGender = gender
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+}
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
+extension AgeLevel {
+    init?(cellIndexPath: NSIndexPath) {
+        switch (cellIndexPath.row, cellIndexPath.section) {
+        case (0, 0) : self = .Over0
+        case (1, 0) : self = .Over10
+        case (2, 0) : self = .Over20
+        case (3, 0) : self = .Over30
+        case (4, 0) : self = .Over40
+        case (5, 0) : self = .Over50
+        case (6, 0) : self = .Over60
+        default : return nil
+        }
     }
+}
 
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
-        return cell
+extension Gender {
+    init?(cellIndexPath: NSIndexPath) {
+        switch (cellIndexPath.row, cellIndexPath.section) {
+        case (0, 2) : self = .Male
+        case (1, 2) : self = .Female
+        default : return nil
+        }
     }
-    */
+}
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
+extension UserAddTableViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
